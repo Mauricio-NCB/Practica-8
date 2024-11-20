@@ -90,3 +90,4 @@ El resto de ficheros son de tipo `.vue`, y por tanto componentes-de-único-fiche
 
 Este proyecto es muy mejorable, pero es suficiente para ver cómo funciona Vue, y además se aprende mucho (de Vue, usabilidad y accesibilidad) mejorando código ajeno. ¡Que no te asuste este código!
 
+ESTO FUNCIONA
