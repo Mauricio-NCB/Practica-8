@@ -6,6 +6,7 @@
 -->
 <template>
   <table v-if="filteredData.length">
+    
     <thead>
       <tr>        
         <th v-for="col in columns" :key="col.key"

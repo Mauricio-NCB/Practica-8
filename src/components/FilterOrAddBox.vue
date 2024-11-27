@@ -18,6 +18,7 @@
       </div>
     </div>
     <div class="col-auto">
+        <button type="button" @click="clearFilters()" class="btn btn-outline-danger">🗑️ Borrar</button>
 
     </div>
     <div v-if="addBtnTitle" class="col-auto">
@@ -59,10 +60,8 @@ const advSearch = ref(filter.value.fields.length > 0)
 
 const id = useId()
 
-function updateValue(key) {
-  const prev = {... filter.value.fields};
-  prev[key] = document.getElementById(`${id}_${key}`).value
-  filter.value = {all: '', fields: prev}
+const clearFilters=()=>{
+  filter.value = {all: '', fields: {}}
 }
 
 // vacía la parte del filtro que no esté seleccionada
