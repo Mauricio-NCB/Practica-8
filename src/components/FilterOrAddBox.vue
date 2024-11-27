@@ -14,15 +14,15 @@
           placeholder="Filtrar">
         <span class="input-group-text btn-outline-secondary">🔍</span>
         <button type="button" data-bs-toggle="button" class="input-group-text btn btn-outline-secondary b-avanzada"
-          @click="toggleAdvanced()" title="Búsqueda avanzada">⚙️</button>
+          @click="toggleAdvanced()" title="Abrir menú de filtros">⚙️</button>
       </div>
     </div>
     <div class="col-auto">
-        <button type="button" @click="clearFilters()" class="btn btn-outline-danger">🗑️ Borrar</button>
+        <button type="button" title="Borrar todos los filtros existentes" @click="clearFilters()" class="btn btn-outline-danger">🗑️ Borrar</button>
 
     </div>
     <div v-if="addBtnTitle" class="col-auto">
-      <button type="button" :title="addBtnTitle" @click="$emit('addElement')" class="btn btn-outline-primary">➕</button>
+      <button type="button" title="Añadir un filtro" @click="$emit('addElement')"  class="btn btn-outline-primary">➕</button>
     </div>
   </div>
   <div v-if="advSearch" class="row mt-3">
@@ -60,7 +60,13 @@ const advSearch = ref(filter.value.fields.length > 0)
 
 const id = useId()
 
-const clearFilters=()=>{
+function updateValue(key) {
+  const prev = {... filter.value.fields};
+  prev[key] = document.getElementById(`${id}_${key}`).value
+  filter.value = {all: '', fields: prev}
+}
+
+function clearFilters() {
   filter.value = {all: '', fields: {}}
 }
 
