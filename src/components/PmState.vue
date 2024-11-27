@@ -41,6 +41,7 @@
     Div principal; container-fluid expande el contenedor para que ocupe todo el espacio disponible 
   -->
   <div class="container-fluid">
+    <button @click="scrollDetails" class="btn btn-primary">Detalles</button>
     <div class="row">
       <!-- columna izquierda (opcional): listado de usuarios -->
       <div v-if="gState.currentListing == 'users'" id="div-users" class="col-md">
@@ -161,6 +162,10 @@ onMounted(() => {
   [...document.querySelectorAll('[data-bs-toggle="tooltip"]')]
     .map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 })
+
+function scrollDetails(){
+  document.getElementById('div-details').scrollIntoView(true);
+}
 
 const props = defineProps(['state'])
 
