@@ -175,4 +175,9 @@ thead>tr {
   border-bottom: 1px solid gray;
   color: rgb(104, 103, 103);
 }
+
+.badge {
+  margin-right: 3px;
+}
+
 </style>
