@@ -31,7 +31,32 @@
     <h5>Acciones</h5>
     <div class="btn-group">
       <button @click="$emit('editSubject')" class="btn btn-outline-success">✏️</button>
-      <button @click="$emit('rmSubject')" class="btn btn-outline-danger">🗑️</button>
+      <button 
+          :disabled="tieneGrupos" 
+          @click="modalEliminarAsignatura = true" 
+          class="btn btn-outline-danger"
+          :title="tieneGrupos ? 'Elimine todos los grupos antes de borrar esta asignatura' : ''">
+          🗑️
+      </button>
+    </div>
+
+          <!-- Modal de confirmación -->
+    <div v-if="modalEliminarAsignatura" class="modal fade show" tabindex="-1" style="display: block; background: rgba(0, 0, 0, 0.5);">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Confirmar eliminación</h5>
+              <button type="button" class="btn-close" @click="closeModal"></button>
+            </div>
+            <div class="modal-body">
+              <p>¿Estás seguro de que deseas eliminar esta asignatura?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" @click="closeModal">Cancelar</button>
+              <button type="button" class="btn btn-danger" @click="confirmDelete">Borrar</button>
+            </div>
+          </div>
+        </div>
     </div>
 </template>
 
@@ -39,13 +64,25 @@
 
 import { gState } from '../state.js';
 
-defineEmits([
-  'editSubject',
-  'rmSubject',
-])
+const emit = defineEmits(['editSubject', 'rmSubject',])
 
 defineProps({
   subject: Object // see definition of Subject in ../model.js
 })
+
+// Computed para verificar si tiene grupos
+const tieneGrupos = computed(() => subject.groups && subject.groups.length > 0);
+
+// Modal state and functions
+const modalEliminarAsignatura = ref(false) // Controla la visibilidad del modal
+
+const closeModal = () => {
+  modalEliminarAsignatura.value = false;
+};
+
+const confirmDelete = () => {
+  closeModal();
+  emit('rmSubject'); // Emite el evento para eliminar el grupo
+};
 
 </script>
