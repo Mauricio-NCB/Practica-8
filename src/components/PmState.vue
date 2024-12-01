@@ -48,7 +48,7 @@
         <div>
           <h5 class="d-inline">Usuarios
           </h5>
-          <a class="d-inline d-sm-none details" href="#div-details">↘️</a>
+          
         </div>
         <span v-if="debug"> {{ gState.searchUserQuery }}</span>
         <FilterOrAddBox v-model:filter="gState.searchUserQuery" :columns="userColumns" @add-element="editUser(-1)"
@@ -63,7 +63,6 @@
         <div>
           <h5 class="d-inline">Asignaturas
           </h5>
-          <a class="d-inline d-sm-none details" href="#div-details">↘️</a>
         </div>
         <span v-if="debug"> {{ gState.searchSubjectQuery }}</span>
         <FilterOrAddBox v-model:filter="gState.searchSubjectQuery" :columns="subjectColumns" @add-element="editSubject(-1)"
@@ -78,7 +77,6 @@
         <div>
           <h5 class="d-inline">Grupos
           </h5>
-          <a class="d-inline d-sm-none details" href="#div-details">↘️</a>
         </div>
         <span v-if="debug"> {{ gState.searchGroupQuery }}</span>
         <FilterOrAddBox v-model:filter="gState.searchGroupQuery" :columns="groupColumns" @add-element="editGroup(-1)"
@@ -93,7 +91,6 @@
         <div>
           <h5 class="d-inline">Espacios
           </h5>
-          <a class="d-inline d-sm-none details" href="#div-details">↘️</a>
         </div>
         <span v-if="debug"> {{ gState.searchLocationQuery }}</span>
         <FilterOrAddBox v-model:filter="gState.searchLocationQuery" :columns="locationColumns" addBtnTitle="" />
@@ -106,7 +103,10 @@
       <!-- columna derecha: detalles de elemento seleccionado -->
       <div id="div-details" class="col-md">
         <div>
-          <a class="d-inline d-sm-none escape" href="#">⬆️</a>
+          <br>
+          <a class="d-inline d-sm-none escape btn btn-primary" href="#">Listado</a>
+          <br>
+          <br>
           <h5 class="d-inline">Detalles</h5>
         </div>
         <div id="details" class="container">
