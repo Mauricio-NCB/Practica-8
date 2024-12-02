@@ -150,6 +150,7 @@
 <style>
 th.ghead {
   white-space: nowrap;
+  padding-left: 5px;
 }
 .arrow.asc::after {
   content: "↓";

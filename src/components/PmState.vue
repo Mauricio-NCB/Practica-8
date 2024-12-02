@@ -117,6 +117,13 @@
       </div>
     </div>
   </div>
+<!-- 
+    Modal para confirmaciones
+    siempre usamos el mismo, y no se muestra hasta que hace falta
+  -->
+  <ConfirmModal ref="confirmModalRef" :isAdd="false"  :text="confirmModalText" :action="confirmAction" />
+    @add="(o) => { console.log('adding', o); gState.model.addUser(o); gState.key++ }"
+    @edit="(o) => { console.log('setting', o); gState.model.setUser(o); gState.key++ }" />
 
   <!-- 
     Modal para crear/editar usuario
@@ -147,6 +154,7 @@
 import FilterOrAddBox from './FilterOrAddBox.vue';
 import SortableGrid from './SortableGrid.vue';
 import DetailsPane from './DetailsPane.vue';
+import ConfirmModal from './ConfirmModal.vue';
 import UserModal from './UserModal.vue';
 import SubjectModal from './SubjectModal.vue';
 import GroupModal from './GroupModal.vue';
@@ -185,7 +193,7 @@ const userColumns = [
       return `
         ${subject.semester} ${v.credits} créditos - 
         ${subject.name} (${subject.short}) - ${subject.degree}`
-    }
+      }
   }
 ]
 
@@ -294,6 +302,14 @@ const selectOne = (type, id) => {
 }
 
 /////
+// Modal para confirmaciones
+/////
+
+let confirmModalRef = ref(null);
+let confirmModalText = ref("texto"); // texto a mostrar en modal
+let confirmAction = ref(null);       // funcion a la que llamar si se confirma
+
+/////
 // Usuarios
 /////
 
@@ -314,12 +330,24 @@ async function editUser(id) {
   userModalRef.value.show()
 }
 
-function rmUser(id) {
-  gState.model.rmUser(id)
-  if (selected.value.id == id) {
-    selected.value = { id: -1 };
+async function confirmRmUser(id) {
+  console.log("now confirming removal of", id)
+  confirmModalText.value = `
+    ¿Quieres eliminar del todo al pobre ${gState.resolve(id).userName}?`
+  confirmAction.value = () => {
+    gState.model.rmUser(id)
+    if (selected.value.id == id) {
+      selected.value = { id: -1 };
+    }
+    gState.key++
   }
-  gState.key++
+  // da tiempo a Vue para que prepare el componente antes de mostrarlo
+  await nextTick()
+  confirmModalRef.value.show()
+}
+
+function rmUser(id) {
+  confirmRmUser(id)
 }
 
 /////
@@ -344,6 +372,17 @@ async function editSubject(id) {
 }
 
 function rmSubject(id) {
+  if (confirm("Quieres eliminar del todo al pobre "+gState.resolve(id).name+"?")) {
+    gState.model.rmUser(id)
+    if (selected.value.id == id) {
+      selected.value = { id: -1 };
+    }
+    gState.key++
+  } else {
+    console.log("no se elimina")
+    return;
+  }
+
   if (selected.value.id == id) {
     selected.value = { id: -1 };
   }  
