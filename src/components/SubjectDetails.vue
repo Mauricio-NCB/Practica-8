@@ -61,20 +61,20 @@
 </template>
 
 <script setup>
-
+import { ref, computed } from 'vue';
 import { gState } from '../state.js';
 
-const emit = defineEmits(['editSubject', 'rmSubject',])
+const emit = defineEmits(['editSubject', 'rmSubject']);
 
-defineProps({
-  subject: Object // see definition of Subject in ../model.js
-})
+const props = defineProps({
+  subject: Object, // Verifica que 'subject' esté definido como propiedad
+});
 
 // Computed para verificar si tiene grupos
-const tieneGrupos = computed(() => subject.groups && subject.groups.length > 0);
+const tieneGrupos = computed(() => props.subject.groups && props.subject.groups.length > 0);
 
 // Modal state and functions
-const modalEliminarAsignatura = ref(false) // Controla la visibilidad del modal
+const modalEliminarAsignatura = ref(false); // Controla la visibilidad del modal
 
 const closeModal = () => {
   modalEliminarAsignatura.value = false;
@@ -84,5 +84,4 @@ const confirmDelete = () => {
   closeModal();
   emit('rmSubject'); // Emite el evento para eliminar el grupo
 };
-
 </script>
