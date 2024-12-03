@@ -99,6 +99,11 @@ function addSpecial() {
       subject.semester /*semester*/, 
       props.groupId /*groupId*/);
     setLastLocation(s);
+
+    let intervalDuration = s.location.includes("Lab") ? 200 : 100;
+
+    s.endTime = start + intervalDuration;
+
     valid = !gState.model.overlapsOtherSlots(s, gState.model.getSlots());
   }
   current.value.push(s);
