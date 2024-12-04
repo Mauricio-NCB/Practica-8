@@ -22,9 +22,11 @@
             :start="group.teacherId"
             :displayCol="'userName'" id="e-teacherId" label="Profesor" />
           <br>
+          <div v-if="!isAdd">
           <SlotBox 
             :start="group.slots" :groupId="group.id"
             id="e-slots" label="Slots" />
+            </div>
         </div>
         <button type="submit" class="invisible">Submit</button>
       </form>
@@ -71,7 +73,15 @@ function setGroup() {
   console.log("saving group...", group, form)
 
   // inicializa campos dependientes de slots
-  const slots = JSON.parse(valueFor("e-slots"))
+  let slots = [];
+  if (!props.isAdd) {
+    try {
+      slots = JSON.parse(valueFor("e-slots"));
+    } catch (e) {
+      console.log("Error parsing slots:", e);
+    }
+  }  
+  
   const otherSlots = gState.model.getSlots()
   const subject = gState.model.resolve(+valueFor("e-subjectId"))
 
