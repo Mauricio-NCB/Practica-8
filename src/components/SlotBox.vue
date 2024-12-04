@@ -89,15 +89,20 @@ function addSpecial() {
   let nextId = --lastId;
   let valid = false;
   let s = null;
+  let group = props.groupId < 0 ? 
+     new gState.model.Group(-1, "Nuevo", -2, 3, false) :
+     gState.resolve(props.groupId);
+  console.log("group is", group)
+  let subject = props.groupId < 0 ? 
+      new gState.model.Subject(-2, "Inventado", "INV", "???", 3, "SPRING") :
+      gState.resolve(group.subjectId);
+  console.log("subject is", subject)
+
   for (let start = startTime; ! valid && start < endTime; start += 100) {
-    let group = gState.resolve(props.groupId);
-    console.log("group is", group)
-    let subject = gState.resolve(group.subjectId);
-    console.log("subject is", subject)
     s = new gState.model.Slot(nextId, weekDay, start, start + 100,
       "???" /*location*/, 
       subject.semester /*semester*/, 
-      props.groupId /*groupId*/);
+      group.id/*groupId*/);
     setLastLocation(s);
 
     let intervalDuration = s.location.includes("Lab") ? 200 : 100;
