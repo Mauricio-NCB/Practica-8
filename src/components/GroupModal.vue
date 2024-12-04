@@ -101,6 +101,7 @@ function setGroup() {
   // crea y actualiza slots según sea necesario
   for (let i=0; i<slots.length; i++) {
     if (slots[i].id < 0) {
+      alert('ERROR USABILIDAD: no se puede añadir un slot sin antes añadir un grupo')
       slots[i] = gState.model.addSlot(slots[i]);
     } else {
       gState.model.setSlot(slots[i])

@@ -978,6 +978,8 @@ function addSlot(slot) {
         slot.startTime, slot.endTime, slot.location, slot.semester, slot.groupId);
     getId(newSlot.id, newSlot, false);
 
+    console.log('SLOOOT', slot)
+    console.log('NEW_SLOT', newSlot)
     // update group
     cache.get(slot.groupId).slots.push(newSlot.id)
 
