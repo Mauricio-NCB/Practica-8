@@ -41,7 +41,7 @@
     Div principal; container-fluid expande el contenedor para que ocupe todo el espacio disponible 
   -->
   <div class="container-fluid">
-    <button @click="scrollDetails" class="btn btn-primary">Detalles</button>
+    <button @click="scrollDetails" class="btn btn-primary d-inline d-sm-none">Detalles</button>
     <div class="row">
       <!-- columna izquierda (opcional): listado de usuarios -->
       <div v-if="gState.currentListing == 'users'" id="div-users" class="col-md">
